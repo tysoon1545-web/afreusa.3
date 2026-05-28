@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Love You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #0a0a0a;
+      overflow: hidden;
+    }
+
+    .love {
+      position: absolute;
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      white-space: nowrap;
+      opacity: 0;
+      text-shadow: 0 0 12px #ff3366;
+      pointer-events: none;
+      animation: writeIn 10s forwards;
+      color: #ff4d6d;
+      user-select: none;
+    }
+
+    @keyframes writeIn {
+      0% { 
+        opacity: 0; 
+        transform: rotate(-12deg) scale(0.4) translateY(30px); 
+      }
+      40% { 
+        opacity: 1; 
+        transform: rotate(var(--rot)) scale(1); 
+      }
+      100% { 
+        opacity: 0.9; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const phrases = [
+      "I LOVE YOU",
+      "I LOVE YOU",
+      "SENİ SEVİYORUM",
+      "I LOVE YOU",
+      "❤️"
+    ];
+
+    function createLove() {
+      const love = document.createElement('div');
+      love.className = 'love';
+      
+      love.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+      
+      love.style.left = Math.random() * 88 + '%';
+      love.style.top = Math.random() * 82 + '%';
+      
+      const rotation = (Math.random() * 35 - 18) + 'deg';
+      love.style.setProperty('--rot', rotation);
+      
+      // Rastgele boyut
+      love.style.fontSize = (Math.random() * 22 + 29) + 'px';
+      
+      // Rastgele renk tonu
+      const opacity = Math.random() * 0.4 + 0.7;
+      love.style.opacity = opacity;
+
+      document.body.appendChild(love);
+
+      setTimeout(() => {
+        love.remove();
+      }, 14000);
+    }
+
+    // Sürekli yazı yağmuru
+    setInterval(() => {
+      for(let i = 0; i < 4; i++) {
+        createLove();
+      }
+    }, 550);
+
+    // Başlangıçta daha fazla yazı
+    for(let i = 0; i < 30; i++) {
+      setTimeout(createLove, i * 90);
+    }
+
+    // Tıklayınca ekstra yazı
+    document.addEventListener('click', (e) => {
+      for(let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const love = document.createElement('div');
+          love.className = 'love';
+          love.textContent = "I LOVE YOU";
+          love.style.left = (e.clientX + Math.random() * 160 - 80) + 'px';
+          love.style.top = (e.clientY + Math.random() * 160 - 80) + 'px';
+          love.style.fontSize = '38px';
+          document.body.appendChild(love);
+          setTimeout(() => love.remove(), 12000);
+        }, i * 40);
+      }
+    });
+  </script>
+</body>
+</html>
